@@ -1,11 +1,11 @@
 import React from 'react';
-import {Container} from 'react-bootstrap';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import postsData from "./postsData.json";
+import PostsContainer from "../PostsContainer/PostsContainer";
 
 
 class Main extends React.Component {
@@ -19,6 +19,14 @@ class Main extends React.Component {
 
   editSearchTerm = (query) => {
     this.setState({ searchTerm: query.target.value } );
+  };
+
+  dynamicSearch = () => {
+    return this.state.data.filter((postObject) =>
+      postObject.username
+        .toLocaleLowerCase()
+        .includes(this.state.searchTerm.toLocaleLowerCase())
+    );
   };
 
   render() {
@@ -70,8 +78,8 @@ class Main extends React.Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Container>
-        </Container>
+
+        <PostsContainer data={this.dynamicSearch()} />
       </div>
     )
   }
