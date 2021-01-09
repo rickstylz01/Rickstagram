@@ -2,15 +2,24 @@ import React from 'react';
 import {Container} from 'react-bootstrap';
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import Button from "react-bootstrap/Button";
+import postsData from "./postsData.json";
 
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      data: postsData,
       searchTerm: "",
     }
   }
+
+  editSearchTerm = (query) => {
+    this.setState({ searchTerm: query.target.value } );
+  };
 
   render() {
     return (
@@ -25,6 +34,18 @@ class Main extends React.Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
           <Navbar.Collapse id="responsive-navbar-nav">
+
+            <Form className="ml-auto" inline>
+              <FormControl
+                type="text"
+                placeholder="Search"
+                className="mr-sm-2"
+                value={this.state.searchTerm}
+                onChange={this.editSearchTerm}
+              />
+
+              <Button variant="outline-success">Search</Button>
+            </Form>
 
             <Nav className="ml-auto">
               <Nav.Link href="#home">
